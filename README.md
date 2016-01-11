@@ -112,6 +112,26 @@ $ ./get_cluster_master.sh
 $
 ```
 
+### Redis Sentinel Client Discovery
+
+Based off the docker-compose.yml's CLUSTER_NAME env var, you can use the Redis Sentinel API to find the Master and Slave nodes for the named cluster.
+
+Here's the example from using the python client [redis-py](https://github.com/andymccurdy/redis-py#sentinel-support):
+
+```
+$ python
+Python 2.7.10 (default, Jul  5 2015, 14:15:43) 
+[GCC 5.1.1 20150618 (Red Hat 5.1.1-4)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from redis.sentinel import Sentinel
+>>> sentinel = Sentinel([('localhost', 19000)], socket_timeout=0.1)
+>>> sentinel.discover_master('redis-cluster')
+('10.0.1.2', 9000)
+>>> sentinel.discover_slaves('redis-cluster')
+[('10.0.1.4', 9001), ('10.0.1.3', 9002)]
+>>> 
+```
+
 ### Stop the Redis Cluster
 
 ```
