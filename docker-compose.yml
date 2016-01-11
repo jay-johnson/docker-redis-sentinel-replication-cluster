@@ -1,0 +1,72 @@
+redisnode1:
+  image: jayjohnson/redis-sentinel-supervisor-clusterable
+  container_name: "redisnode1"
+  hostname: "redisnode1"
+  environment:
+    - NODE_TYPE=master
+    - IP_BIND=0.0.0.0
+    - MASTER_REDIS_HOST=redisnode1
+    - MASTER_REDIS_PORT=9000
+    - REDIS_PORT=9000
+    - SENTINEL_PORT=19000
+    - SENTINEL_INSTANCES_FOR_QUORUM=2
+    - SENTINEL_DOWN_IN_MILLISECONDS=5000
+    - SENTINEL_FAILOVER_TIMEOUT=10000
+    - NODE_REPLICAS=redisnode1:9000 redisnode2:9001 redisnode3:9002
+    - CLUSTERED=0
+  ports:
+    - "9000:9000"
+    - "19000:19000"
+  cap_add:
+    - ALL
+    - NET_ADMIN
+    - SYS_ADMIN
+
+redisnode2:
+  image: jayjohnson/redis-sentinel-supervisor-clusterable
+  container_name: "redisnode2"
+  hostname: "redisnode2"
+  environment:
+    - NODE_TYPE=node2
+    - IP_BIND=0.0.0.0
+    - MASTER_REDIS_HOST=redisnode1
+    - MASTER_REDIS_PORT=9000
+    - REDIS_PORT=9001
+    - SENTINEL_PORT=19001
+    - SENTINEL_INSTANCES_FOR_QUORUM=2
+    - SENTINEL_DOWN_IN_MILLISECONDS=5000
+    - SENTINEL_FAILOVER_TIMEOUT=10000
+    - NODE_REPLICAS=redisnode1:9000 redisnode2:9001 redisnode3:9002
+    - CLUSTERED=0
+  ports:
+    - "9001:9001"
+    - "19001:19001"
+  cap_add:
+    - ALL
+    - NET_ADMIN
+    - SYS_ADMIN
+
+redisnode3:
+  image: jayjohnson/redis-sentinel-supervisor-clusterable
+  container_name: "redisnode3"
+  hostname: "redisnode3"
+  environment:
+    - NODE_TYPE=node3
+    - IP_BIND=0.0.0.0
+    - MASTER_REDIS_HOST=redisnode1
+    - MASTER_REDIS_PORT=9000
+    - REDIS_PORT=9002
+    - SENTINEL_PORT=19002
+    - SENTINEL_INSTANCES_FOR_QUORUM=2
+    - SENTINEL_DOWN_IN_MILLISECONDS=5000
+    - SENTINEL_FAILOVER_TIMEOUT=10000
+    - NODE_REPLICAS=redisnode1:9000 redisnode2:9001 redisnode3:9002
+    - CLUSTERED=0
+  ports:
+    - "9002:9002"
+    - "19002:19002"
+  cap_add:
+    - ALL
+    - NET_ADMIN
+    - SYS_ADMIN
+
