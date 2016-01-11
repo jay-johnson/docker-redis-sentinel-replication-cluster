@@ -123,3 +123,9 @@ Stopping redisnode1 ...
 $
 ```
 
+### License
+
+This is free to use under the MIT LICENSE.
+
+Enjoy.
+
