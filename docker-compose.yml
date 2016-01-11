@@ -3,6 +3,7 @@ redisnode1:
   container_name: "redisnode1"
   hostname: "redisnode1"
   environment:
+    - CLUSTER_NAME=redis-cluster
     - NODE_TYPE=master
     - IP_BIND=0.0.0.0
     - MASTER_REDIS_HOST=redisnode1
@@ -27,6 +28,7 @@ redisnode2:
   container_name: "redisnode2"
   hostname: "redisnode2"
   environment:
+    - CLUSTER_NAME=redis-cluster
     - NODE_TYPE=node2
     - IP_BIND=0.0.0.0
     - MASTER_REDIS_HOST=redisnode1
@@ -51,6 +53,7 @@ redisnode3:
   container_name: "redisnode3"
   hostname: "redisnode3"
   environment:
+    - CLUSTER_NAME=redis-cluster
     - NODE_TYPE=node3
     - IP_BIND=0.0.0.0
     - MASTER_REDIS_HOST=redisnode1
